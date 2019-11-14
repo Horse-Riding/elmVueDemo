@@ -1,6 +1,7 @@
 var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var projectRoot = path.resolve(__dirname, '../')
 
 var env = process.env.NODE_ENV
@@ -9,6 +10,28 @@ var env = process.env.NODE_ENV
 var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
 var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
 var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
+
+// const isProd = process.env.NODE_ENV === 'production';
+
+// const cssConfig=[isProd?MiniCssExtractPlugin.loader:'vue-style-loader',{
+//         loader: 'css-loader',
+//         options: {
+//             minimize: isProd,
+//             sourceMap: !isProd
+//         }
+//     },'postcss-loader']
+//     ,stylusConfig=[isProd?MiniCssExtractPlugin.loader:'vue-style-loader',{
+//         loader: 'css-loader',
+//         options: {
+//             minimize: isProd,
+//             sourceMap: !isProd
+//         }
+//     },{
+//         loader: 'stylus-loader',
+//         options: {
+//             sourceMap: !isProd
+//         }
+//     }];
 
 module.exports = {
   entry: {
@@ -33,7 +56,7 @@ module.exports = {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
         loader: 'vue'
@@ -44,6 +67,10 @@ module.exports = {
         include: projectRoot,
         exclude: /node_modules/
       },
+      // {
+      //     test: /\.css$/,
+      //     use:cssConfig
+      // },
       {
         test: /\.json$/,
         loader: 'json'
@@ -70,11 +97,19 @@ module.exports = {
     formatter: require('eslint-friendly-formatter')
   },
   vue: {
-    loaders: utils.cssLoaders({sourceMap: useCssSourceMap}),
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 2 versions']
-      })
-    ]
+    // 使用用户自定义插件
+    postcss: [require('browserslist')([        
+            "> 1%",
+          "last 2 versions"
+      ])]
   }
+  // vue: {
+  //   loaders: utils.cssLoaders({sourceMap: useCssSourceMap}),
+  //   postcss: [
+  //     require('browserslist')([        
+  //           "> 1%",
+  //         "last 2 versions"
+  //     ])
+  //   ]
+  // }
 }

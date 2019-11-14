@@ -18,16 +18,22 @@ module.exports = {
     port: 9000
   },
   dev: {
+    // 调用dev环境配置文件
     env: require('./dev.env'),
+    // 端口号
     port: 8888,
+    // 资源文件子目录
     assetsSubDirectory: 'static',
+    // 资源公共目录
     assetsPublicPath: '/',
+    // 代理表
     proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
+    // 是否开启css文件打包后乱码
     cssSourceMap: false
   }
 }
