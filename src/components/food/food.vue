@@ -37,8 +37,8 @@
                                   :ratings="food.ratings"></ratingselect>
                     <div class="rating-wrapper">
                         <ul v-show="food.ratings && food.ratings.length">
-                            <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in food.ratings"
-                                class="rating-item border-1px">
+                            <li v-show="needShow(rating.rateType, rating.text)" v-for="(rating, index) in food.ratings"
+                                :key="index" class="rating-item border-1px">
                                 <div class="user">
                                     <span class="name">{{ rating.username }}</span>
                                     <img :src="rating.avatar" class="avatar" width="12" height="12">
@@ -61,14 +61,14 @@
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
     import Vue from 'vue';
-    import cartcontrol from 'components/cartcontrol/cartcontrol';
-    import split from 'components/split/split';
-    import ratingselect from 'components/ratingselect/ratingselect';
-    import {formatDate} from 'common/js/date';
+    import cartcontrol from '../../components/cartcontrol/cartcontrol';
+    import split from '../../components/split/split';
+    import ratingselect from '../../components/ratingselect/ratingselect';
+    import {formatDate} from '../../common/js/date';
     import Bus from '../../common/js/eventBus';
 
-    const POSITIVE = 0;
-    const NEGATIVE = 1;
+    // const POSITIVE = 0;
+    // const NEGATIVE = 1;
     const ALL = 2;
 
     export default{
@@ -87,7 +87,7 @@
                     positive: '推荐',
                     negative: '吐槽'
                 }
-            }
+            };
         },
         components: {
             cartcontrol,
@@ -155,7 +155,7 @@
                 return formatDate(date, 'yyyy-MM-dd hh:mm');
             }
         }
-    }
+    };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

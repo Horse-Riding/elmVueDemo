@@ -54,7 +54,7 @@
             return {
                 selectType2: this.selectType,
                 onlyContent2: this.onlyContent
-            }
+            };
         },
         methods: {
             select(type, event) {
@@ -75,16 +75,16 @@
         computed: {
             positives() {
                 return this.ratings.filter((rating) => {
-                    return rating.rateType === POSITIVE
+                    return rating.rateType === POSITIVE;
                 });
             },
             negatives() {
                 return this.ratings.filter((rating) => {
-                    return rating.rateType === NEGATIVE
+                    return rating.rateType === NEGATIVE;
                 });
             }
         }
-    }
+    };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

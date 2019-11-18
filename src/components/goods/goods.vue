@@ -2,7 +2,7 @@
     <div class="goods">
         <div class="menu-wrapper" ref="menuWrapper">
             <ul>
-                <li v-for="(item, index) in goods" class="menu-item" :class="{'current': currentIndex === index}"
+                <li v-for="(item, index) in goods" :key="index" class="menu-item" :class="{'current': currentIndex === index}"
                     @click="selectMenu(index, $event)">
                     <span class="text border-1px">
                         <span v-show="item.type > 0" class="icon" :class="classMap[item.type]"></span>{{ item.name }}
@@ -12,10 +12,10 @@
         </div>
         <div class="foods-wrapper" ref="foodWrapper">
             <ul>
-                <li v-for="item in goods" class="food-list food-list-hook">
+                <li v-for="(item, index) in goods" :key="index" class="food-list food-list-hook">
                     <h1 class="title">{{ item.name }}</h1>
                     <ul>
-                        <li v-for="(food,index) in item.foods" class="food-item border-1px"
+                        <li v-for="(food, index) in item.foods" :key="index" class="food-item border-1px"
                             @click="selectFood(food, $event)">
                             <div class="icon">
                                 <img :src="food.icon" width="57" height="57">
@@ -46,9 +46,9 @@
 
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
-    import shopcart from 'components/shopcart/shopcart';
-    import cartcontrol from 'components/cartcontrol/cartcontrol';
-    import food from 'components/food/food';
+    import shopcart from '../../components/shopcart/shopcart';
+    import cartcontrol from '../../components/cartcontrol/cartcontrol';
+    import food from '../../components/food/food';
     import Bus from '../../common/js/eventBus';
 
     const ERR_OK = 0;
@@ -107,7 +107,7 @@
             Bus.$on('cart.add', el => {
                 this.$nextTick(() => {
                     this.$refs.shopcart.drop(el);
-                })
+                });
             });
         },
         methods: {
@@ -123,7 +123,7 @@
                 this.foodScroll.on('scroll', (pos) => {
                     // 拿到实时的y坐标
                     this.scrollY = Math.abs(Math.round(pos.y));
-                })
+                });
             },
             _calculateHeight() {
                 // 获取食物的li Dom节点列表
@@ -168,7 +168,7 @@
             cartcontrol,
             food
         }
-    }
+    };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

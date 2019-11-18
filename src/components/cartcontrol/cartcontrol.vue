@@ -20,7 +20,7 @@
             }
         },
         data() {
-            return {}
+            return {};
         },
         methods: {
             addCart(event) {
@@ -46,8 +46,7 @@
                 }
             }
         }
-    }
-
+    };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

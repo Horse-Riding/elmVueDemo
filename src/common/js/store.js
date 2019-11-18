@@ -13,7 +13,6 @@ export function saveToLocal(id, key, value) {
     if (!seller) {
         seller = {};
         seller[id] = {};
-
     } else {
         seller = JSON.parse(seller);
         if (!seller[id]) {
@@ -37,7 +36,7 @@ export function loadFromLocal(id, key, def) {
     }
     seller = JSON.parse(seller)[id];
     // 判断是否有此商家
-    if(!seller){
+    if (!seller) {
         return def;
     }
     // 判断是否有这个 key

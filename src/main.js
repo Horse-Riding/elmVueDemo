@@ -2,12 +2,12 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
-import goods from 'components/goods/goods';
-import ratings from 'components/ratings/ratings';
-import seller from 'components/seller/seller';
+import goods from './components/goods/goods';
+import ratings from './components/ratings/ratings';
+import seller from './components/seller/seller';
 
 // 引入需要打包的外部样式
-import 'common/scss/index.scss';
+// import './common/scss/index.scss';
 
 // 0. 如果使用模块化机制编程， 要调用 Vue.use(VueRouter)
 // 全局注册
@@ -38,7 +38,7 @@ const router = new VueRouter({
 // 记得要通过 router 配置参数注入路由，
 // 从而让整个应用都有路由功能
 /* eslint-disable no-new */
-const app = new Vue({
+new Vue({
     router,
     render: h => h(App)
 }).$mount('#app');

@@ -13,8 +13,9 @@ export function urlParse() {
     // 正则规则
     let reg = /[?&][^?&]+=[^?&]+/g;
     // match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。
-    let arr = url.match(reg);  // 结果返回 ["?id=12345", "&a=b"]
-    if(arr){
+    // 结果返回 ["?id=12345", "&a=b"]
+    let arr = url.match(reg);  
+    if (arr) {
         arr.forEach((item) => {
             let tempArr = item.substring(1).split('=');
             // decodeURIComponent() 函数可对 dencodeURIComponent() 函数编码的 URI 进行解码。
@@ -24,4 +25,4 @@ export function urlParse() {
         });
     }
     return obj;
-}
+} 

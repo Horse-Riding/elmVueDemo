@@ -1,6 +1,6 @@
 <template>
     <div class="star" :class="starType">
-        <span v-for="(itemClass, index) in itemClasses" :class="itemClass" class="star-item"></span>
+        <span v-for="(itemClass, index) in itemClasses" :key="index" :class="itemClass" class="star-item"></span>
     </div>
 </template>
 
@@ -22,8 +22,7 @@
         },
         data() {
             return {
-
-            }
+            };
         },
         computed: {
             starType() {
@@ -40,15 +39,14 @@
                 if (hasDecimal) {
                     result.push(CLS_HALF);
                 }
-                while(result.length < LENGTH){
+                while (result.length < LENGTH) {
                     result.push(CLS_OFF);
                 }
                 return result;
-
             }
         },
         methods: {}
-    }
+    };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

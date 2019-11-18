@@ -29,7 +29,7 @@
                           :ratings="ratings" @select="select" @onlyContent2="onlyContent2"></ratingselect>
             <div class="rating-wrapper">
                 <ul>
-                    <li v-for="rating in ratings" class="rating-item border-1px" v-show="needShow(rating.rateType, rating.text)">
+                    <li v-for="(rating, index) in ratings" :key="index" class="rating-item border-1px" v-show="needShow(rating.rateType, rating.text)">
                         <div class="avatar">
                             <img :src="rating.avatar" width="28" height="28">
                         </div>
@@ -42,7 +42,7 @@
                             <p class="text">{{ rating.text }}</p>
                             <div class="recommend" v-if="rating.recommend && rating.recommend.length">
                                 <i class="icon-thumb_up"></i>
-                                <span v-for="item in rating.recommend" class="item">{{ item }}</span>
+                                <span v-for="(item, index) in rating.recommend" :key="index" class="item">{{ item }}</span>
                             </div>
                             <div class="time">
                                 {{ rating.rateTime | formatDate }}
@@ -56,10 +56,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {formatDate} from 'common/js/date';
-    import star from 'components/star/star';
-    import split from 'components/split/split';
-    import ratingselect from 'components/ratingselect/ratingselect';
+    import {formatDate} from '../../common/js/date';
+    import star from '../../components/star/star';
+    import split from '../../components/split/split';
+    import ratingselect from '../../components/ratingselect/ratingselect';
     import BScroll from 'better-scroll';
 
     const ALL = 2;
@@ -126,12 +126,11 @@
                 return formatDate(date, 'yyyy-MM-dd hh:mm');
             }
         }
-    }
+    };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
     @import "../../common/scss/mixins";
-
     .ratings {
         position: fixed;
         top: 174px;
@@ -146,7 +145,7 @@
                 flex: 0 0 137px;
                 padding: 6px 0;
                 width: 137px;
-                border-right: 1px solid rgba(7, 17, 27, .1);
+                border-right: 1px solid rgba(7, 17, 27, 0.1);
                 text-align: center;
                 @media only screen and (max-width: 320px) {
                     flex: 0 0 120px;
@@ -218,7 +217,7 @@
             .rating-item {
                 display: flex;
                 padding: 18px 0;
-                @include border-1px(rgba(7, 17, 27, .1))
+                @include border-1px(rgba(7, 17, 27, 0.1));
                 .avatar {
                     flex: 0 0 28px;
                     width: 28px;

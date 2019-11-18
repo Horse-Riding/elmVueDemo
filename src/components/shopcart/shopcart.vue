@@ -17,13 +17,15 @@
                 </div>
             </div>
             <div class="ball-container">
-                <template v-for="ball in balls">
-                    <transition name="drop" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-                        <div class="ball" v-show="ball.show">
-                            <div class="inner inner-hook"></div>
-                        </div>
-                    </transition>
-                </template>
+                <div v-for="(ball, index) in balls" :key="index">
+                    <template>
+                        <transition name="drop" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+                            <div class="ball" v-show="ball.show">
+                                <div class="inner inner-hook"></div>
+                            </div>
+                        </transition>
+                    </template>
+                </div>
             </div>
             <transition name="fold">
                 <div class="shopcart-list" v-show="listShow">
@@ -33,7 +35,7 @@
                     </div>
                     <div class="list-content" ref="listContent">
                         <ul>
-                            <li class="food border-1px" v-for="food in selectFoods">
+                            <li class="food border-1px" v-for="(food, index) in selectFoods" :key="index" >
                                 <span class="name">{{ food.name }}</span>
                                 <div class="price">￥{{ food.price * food.count }}</div>
                                 <div class="cartcontrol-wrapper">
@@ -52,13 +54,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import BScroll from 'better-scroll';
-    import cartcontrol from 'components/cartcontrol/cartcontrol';
+    // import BScroll from 'better-scroll';
+    import cartcontrol from '../../components/cartcontrol/cartcontrol';
     export default{
         props: {
             selectFoods: {
                 type: Array,
-                default(){
+                default() {
                     return [];
                 }
             },
@@ -91,7 +93,7 @@
                     }
                 ],
                 dropBalls: [],
-                fold: true /*折叠*/
+                fold: true
             };
         },
         computed: {
@@ -116,7 +118,7 @@
                     let diff = this.minPrice - this.totalPrice;
                     return `还差￥${diff}元起送`;
                 } else {
-                    return '去结算'
+                    return '去结算';
                 }
             },
             payClass() {
@@ -128,21 +130,22 @@
             },
             listShow() {
                 if (!this.totalCount) {
-                    this.fold = true;
-                    return false;
+                    // 计算属性需要在父页面修改
+                    // this.fold = true;
+                    // return false;
                 }
                 let show = !this.fold;
                 if (show) {
                     this.$nextTick(() => {
                         if (!this.scroll) {
-                            this.scroll = new BScroll(this.$refs.listContent, {
-                                click: true
-                            });
+                        // 计算属性不能直接改需要传到父级页面
+                            // this.scroll = new BScroll(this.$refs.listContent, {
+                            //     click: true
+                            // });
                         } else {
                             // 重新计算better-scroll高度
                             this.scroll.refresh();
                         }
-
                     });
                 }
                 return show;
@@ -184,7 +187,7 @@
             },
             enter(el) {
                 /* 触发浏览器重绘 */
-                let rf = el.offsetHeight;
+                // let rf = el.offsetHeight;
 
                 this.$nextTick(() => {
                     el.style.webkitTransform = 'translate3d(0, 0, 0)';
@@ -210,14 +213,14 @@
             },
             empty() {
                 this.selectFoods.forEach((food) => {
-                    food.count = 0
+                    food.count = 0;
                 });
             },
             hideList() {
                 this.fold = true;
             },
             pay() {
-                if(this.totalPrice < this.minPrice){
+                if (this.totalPrice < this.minPrice) {
                     return;
                 }
                 window.alert(`支付${this.totalPrice}元`);
